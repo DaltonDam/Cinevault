@@ -5,6 +5,7 @@ import com.cinevault.controller.response.MovieResponse;
 import com.cinevault.entity.Movie;
 import com.cinevault.mapper.MovieMapper;
 import com.cinevault.service.MovieService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Request;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class MovieController {
     private final MovieService movieService;
 
     @PostMapping
-    public ResponseEntity<MovieResponse> save(@RequestBody MovieRequest request) {
+    public ResponseEntity<MovieResponse> save(@Valid @RequestBody MovieRequest request) {
         Movie savedMovie = movieService.save(MovieMapper.toMovie(request));
         return ResponseEntity.ok(MovieMapper.toMovieResponse(savedMovie));
     }
@@ -44,7 +45,7 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieResponse> update(@PathVariable Long id,@RequestBody MovieRequest request) {
+    public ResponseEntity<MovieResponse> update(@PathVariable Long id, @Valid @RequestBody MovieRequest request) {
         return movieService.update(id, MovieMapper.toMovie(request))
                 .map(movie -> ResponseEntity.ok(MovieMapper.toMovieResponse(movie)))
                 .orElse(ResponseEntity.notFound().build());

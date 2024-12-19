@@ -1,4 +1,4 @@
 package com.cinevault.controller.request;
 
-public record LoginRequest() {
+public record LoginRequest(String email, String password) {
 }

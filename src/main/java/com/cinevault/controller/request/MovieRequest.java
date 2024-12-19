@@ -1,11 +1,12 @@
 package com.cinevault.controller.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public record MovieRequest(String title,
+public record MovieRequest(@NotEmpty(message = "The movie title is required.") String title,
                            String description,
 
                            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
